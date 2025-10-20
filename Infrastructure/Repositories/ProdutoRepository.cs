@@ -1,5 +1,6 @@
 using Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Infrastructure.Repositories;
 
@@ -15,33 +16,37 @@ public class ProdutoRepository : IProdutoRepository
         _context = context;
     }
 
-    public Task<IEnumerable<Produto>> GetAllAsync(CancellationToken ct = default)
+    public async Task<IEnumerable<Produto>> GetAllAsync(CancellationToken ct = default)
     {
         // TODO: retornar lista com AsNoTracking.
-        throw new NotImplementedException();
+        return await _context.Produtos.AsNoTracking().ToListAsync(ct); //Feito.
     }
 
-    public Task<Produto?> GetByIdAsync(int id, CancellationToken ct = default)
+    public async Task<Produto?> GetByIdAsync(int id, CancellationToken ct = default)
     {
         // TODO: usar FindAsync.
-        throw new NotImplementedException();
+        return await _context.Produtos.FindAsync(id, ct); //Ver se está pronto. 
+        // throw new NotImplementedException();
     }
 
-    public Task AddAsync(Produto produto, CancellationToken ct = default)
+    public async Task AddAsync(Produto produto, CancellationToken ct = default)
     {
         // TODO: AddAsync(produto, ct)
-        throw new NotImplementedException();
+        await _context.Produtos.AddAsync(produto, ct); //Ver se está pronto
+        // throw new NotImplementedException();
     }
 
-    public Task RemoveAsync(Produto produto, CancellationToken ct = default)
+    public async Task RemoveAsync(Produto produto, CancellationToken ct = default)
     {
         // TODO: _context.Remove(produto)
-        throw new NotImplementedException();
+        _context.Remove(produto); //Ver se está pronto, ver se precisa de await. Se não precisa, pesquisar o porque.
+        // throw new NotImplementedException();
     }
 
-    public Task SaveChangesAsync(CancellationToken ct = default)
+    public async Task SaveChangesAsync(CancellationToken ct = default)
     {
         // TODO: _context.SaveChangesAsync(ct)
-        throw new NotImplementedException();
+        await _context.SaveChangesAsync(ct);
+        // throw new NotImplementedException();
     }
 }
