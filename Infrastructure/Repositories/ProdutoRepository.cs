@@ -33,6 +33,7 @@ public class ProdutoRepository : IProdutoRepository
     {
         // TODO: AddAsync(produto, ct)
         await _context.Produtos.AddAsync(produto, ct); //Ver se está pronto
+        await _context.SaveChangesAsync(ct);
         // throw new NotImplementedException();
     }
 
@@ -40,6 +41,7 @@ public class ProdutoRepository : IProdutoRepository
     {
         // TODO: _context.Remove(produto)
         _context.Remove(produto); //Ver se está pronto, ver se precisa de await. Se não precisa, pesquisar o porque.
+        await _context.SaveChangesAsync(ct);
         // throw new NotImplementedException();
     }
 
